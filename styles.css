@@ -1,0 +1,10 @@
+body{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    max-width: auto;
+    padding-left: 50px;
+    padding-right: 50px;
+}
