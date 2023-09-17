@@ -7,4 +7,22 @@ body{
     max-width: auto;
     padding-left: 50px;
     padding-right: 50px;
+    background-color:rgb(168, 238, 97);
+}
+
+
+.task-completed {
+    transition: 0.5s;
+    transform: scale(90%);
+    text-decoration: line-through;
+    color: rgb(255, 115, 115);
+}
+
+#todo_list{
+    padding: 5px;
+    background-color: rgb(149, 167, 167);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
