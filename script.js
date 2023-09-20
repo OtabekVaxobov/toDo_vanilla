@@ -1,7 +1,7 @@
 const data = [
     {
         "todo": "wake up",
-        "completed": true,
+        "completed": false,
       },
       {
         "todo": "Do something",
@@ -9,7 +9,7 @@ const data = [
       },
       {
         "todo": "just do it",
-        "completed": false,
+        "completed": true,
       },
 ]
 
@@ -56,11 +56,12 @@ TodoPad.addEventListener("submit", (e) => {
              
             }else{
               newDiv.className += "task-no-completed";
+              
             }
             let htmlData = `${todo.todo}
-        <input id="checkbox" type='checkbox' class="task_check_btn" onClick="onCheck(${id})"></input>
-        <button onClick='onDelete(${id})'>Delete</button>
-        <button id="btnEdit" onClick='onEdit(${id})'>EDIT</button>
+        <button key=${id} id="checkbox" class="task_check_btn" onclick ="onCheck(${id})">Complete</input>
+        <button onclick ='onDelete(${id})'>Delete</button>
+        <button id="btnEdit" onclick ='onEdit(${id})'>EDIT</button>
         `;
             newDiv.insertAdjacentHTML('afterbegin', htmlData);
             showDiv.insertAdjacentElement('afterbegin', newDiv)
@@ -86,22 +87,25 @@ setTimeout(() => {
 }, 2);
   
 // checked
+let arr = JSON.parse(localStorage.getItem('todos'));
 function onCheck(id) {
-document.querySelectorAll('#checkbox').forEach( elem => {
+document.querySelectorAll('#checkbox').forEach( (elem, key) => {
   elem.addEventListener('click', function (e) {
-   
-    e.stopImmediatePropagation()
+    e.preventDefault()
+   e.stopImmediatePropagation()
     if(e.target.chacked){
-      e.target.parentElement.className = "task-no-completed";
       e.target.chacked = false
+      e.target.parentElement.className = "task-no-completed";
+      arr.splice(id, 1, { todo: arr[id].todo, completed: false })
+      localStorage.setItem('todos', JSON.stringify(arr));
       
-    //  localStorage.setItem('todos')[id].completed = 'false'
     }else{
+      
       e.target.parentElement.className = "task-completed";
-      e.target.chacked = true
+     e.target.chacked = true
+      arr.splice(id, 1, { todo: arr[id].todo, completed: true })
+      localStorage.setItem('todos', JSON.stringify(arr));
     }
-    console.log(JSON.parse(localStorage.getItem('todos'))[id].completed = !e.target.chacked)
-    // console.log(e.target.parentElement, id)
   })})
 }
 
